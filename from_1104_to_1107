@@ -1,0 +1,109 @@
+- IndexedStack & BottomNavigationBar 예제코드
+    - IndexedStack : 하단 버튼을 클릭하면 보여주는 영역? 화면? 위젯
+    - BottomNavigaionBar : 하단에 있는 버튼 위젯
+
+```cpp
+/// Copyright 2022. ⓒ DevStory.co.kr All rights reserved.
+
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+    ),
+  );
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentIndex = 0; // 현재 보여주려는 index
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(
+        index: currentIndex, // index 순서에 해당하는 child를 맨 위에 보여줌
+        children: [
+          Center(child: Text("1")), // index 0
+          Center(child: Text("2")), // index 1
+          Center(child: Text("3")), // index 2
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex, // 현재 보여주는 탭
+        onTap: (newIndex) {
+          print("selected newIndex : $newIndex");
+          setState(() {
+            // 보여주려는 index 변경
+            currentIndex = newIndex;
+          });
+        },
+        // 아이콘 색상
+        selectedItemColor: Colors.amber,
+        unselectedItemColor: Colors.grey,
+        // label 숨기기
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+//+ label을 숨기지 않을경우 아이콘이 위로 뜨는? 제스쳐 발생.
+        // 선택시 아이콘 움직이지 않기
+        type: BottomNavigationBarType.fixed, //shifting으로 바꾸면 밀린다,,,!!!
+        backgroundColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""), // index 0
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: ""), // index 1
+          BottomNavigationBarItem(icon: Icon(Icons.redeem), label: ""), // index 2
+        ],
+      ),
+    );
+  }
+}
+```
+
+```dart
+body : SafeArea(
+child: SizedBox(),
+)
+```
+
+SafeArea에 넣고, SizedBox에 넣고, 스택 넣고, 안에다가 Column
+
+- crossAxisAlignment 의 기본값은 center
+
+```dart
+padding: const EdgeInsets.symmetric(horizontal: 24),
+// 패들링의 바깥쪽을 대칭, 세로로 24만큼 띄워?준다.
+```
+
+```dart
+Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "예약된 서비스가 아직 없어요. 지금 예약해보세요!",
+                              style: TextStyle(
+                                fontSize: 100,
+                              ),
+                            ),
+                          ),
+                        )
+```
+
+- Position Widget : Stack 위젯 내부에서만 작동하는 위젯으로, stack내부에서의 위치를 조정할 때 사용.
+- ListTile 은 각 항목에 대한 열의 항목들 (아이콘, 텍스트 등)을 나열.
+- ListView는 항목들을 행으로 나열
+    - leading은 아이콘, title은 텍스트, onTap은 항목을 눌렀을 때의 수행할 코드를 지정함.
+
+⇒얘네는 알아서 예쁜 공백이 생긴다,,,!
+
+- Expanded :  Row , Column, Flex의 자식으로 사용 가능하며, 부모의 남은 부분은 전부 채우는 모습으로 화면에 나타남.
+    - 핸드폰 화면에 맞게 균일하게 배치하기 위해서 사용.
+    - flex 속성을 사용하여 원하는 비율로도 나눌 수 있다.
