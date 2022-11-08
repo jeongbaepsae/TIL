@@ -1,0 +1,38 @@
+# Cloud Firestore
+
+- 데이터의 저장 위치
+    - 기기에 저장
+        
+        서버 운용비용이 들지 않고 오프라인 서비스가 가능하지만 다른 기기에서 사용이 불가하고 유저 간 소통을 할 수 없다.
+        
+    - 서버에 저장
+        
+        여러기기에서 사용할 수 있고 다른 유저간 소통이 가능하다. 서버 비용이 들며 인터넷 연결이 필요하다.
+        
+- SQL vs NoSQL
+    - 데이터 저장에 특화된 데이터베이스에는 SQL진영과 NoSQL진영이 있다.
+    - 둘을 나누는 기준은 데이터를 어떤 틀에 저장하는지!
+    - SQL (Relational)
+        - 정해진 틀에 저장 (ex: excel)
+            - MySQL, Oracle …
+    - NoSQL(Key-Value, Column-Family, Graph, Document)
+        - 데이터를 다양한 형태로 저장할 수 있다.
+            - 제품 : Firestore, MongoDB, Cloud Firestore …
+
+---
+
+### FireStore
+
+- Collection과 Document를 반복하는 형태로 데이터를 저장. API 응답으로 넘어오는 JSON 형태와 비슷하게 생겼음
+    - Collection
+        
+        여러 Documnet를 가진 폴더
+        
+    - Document
+        
+        고유 ID, MAP같은 Key : Value 형태로 구성된 문서.
+        
+        ✔또 다른 Collection을 가질 수 있다.
+        
+
+`Firebase의 <규칙>`
